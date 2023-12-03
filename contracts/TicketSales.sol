@@ -14,6 +14,7 @@ contract TicketSales {
 
     mapping(address => uint) public ticketOwners;  
     mapping(address => address) public swapOffers; 
+    mapping(uint => address) public ticketOwnersByTicketId;
 
     constructor(uint numTickets, uint price) {
         owner = msg.sender;
@@ -22,14 +23,17 @@ contract TicketSales {
         serviceFeePercentage = 10;  
     }
 
-    function buyTicket(uint ticketId) public payable {
-        require(msg.sender != owner, "Owner cannot buy tickets");
-        require(ticketId > 0 && ticketId <= totalTickets, "Invalid ticket identifier");
-        require(ticketOwners[msg.sender] == 0, "You already own a ticket");
-        require(msg.value == ticketPrice, "Incorrect amount sent");
+function buyTicket(uint ticketId) public payable {
+    require(msg.sender != owner, "Owner cannot buy tickets");
+    require(ticketId > 0 && ticketId <= totalTickets, "Invalid ticket identifier");
+    require(ticketOwners[msg.sender] == 0, "You already own a ticket");
+    require(msg.value == ticketPrice, "Incorrect amount sent");
+    require(ticketOwnersByTicketId[ticketId] == address(0), "Ticket already sold");
 
-        ticketOwners[msg.sender] = ticketId;
-    }
+    ticketOwners[msg.sender] = ticketId;
+    ticketOwnersByTicketId[ticketId] = msg.sender;
+}
+
 
     function getTicketOf(address person) public view returns (uint) {
         return ticketOwners[person];
@@ -67,4 +71,6 @@ contract TicketSales {
 
         delete ticketOwners[msg.sender];
     }
+
+    
 }

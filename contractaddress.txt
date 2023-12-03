@@ -1,0 +1,3 @@
+Contract deployed to 0x889e6353e0D7D7CB572c46044F8cc05FD4952fcd
+had to redploy to 
+Contract deployed to 0x06EcF52CD1807A0e60ea5cf91651C953bF911ABB

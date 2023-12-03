@@ -28,6 +28,6 @@ const output = JSON.parse(solc.compile(JSON.stringify(input)));
 //console.log(output.contracts["TicketSales.sol"].TicketSales);
 const contracts = output.contracts["TicketSales.sol"];
 const contract=contracts['TicketSales'];
-console.log(contract);
-//console.log(JSON.stringify(contract.abi));
+//console.log(contract);
+console.log(JSON.stringify(contract.abi));
 module.exports= {"abi":contract.abi,"bytecode":contract.evm.bytecode.object};
